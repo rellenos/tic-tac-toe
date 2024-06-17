@@ -20,19 +20,19 @@ for (var i = 1; i <= 9; i++) {
             return;
         }
 
-        var coordenada = document.getElementsByClassName("coord" + /\d+/)
+        var coordenada = this.className.split(" ")[0].toString()
         console.log(coordenada);
-        // coordenada.toString();
-        // var fila = parseInt(coordenada.chartAt(5));
-        // var columna = parseInt(coordenada.chartAt(6));
+        var fila = coordenada.charAt(5);
+        var columna = coordenada.charAt(6);
+        console.log("el primer valor de coordenada es " + coordenada.charAt(5) + " y el segundo es " + coordenada.charAt(6))
 
         if (turno%2 == 0) {
             this.classList.add("turnoA")
-            // tauler[fila][columna] = "X";
+            tauler[fila][columna] = "X";
         }
         if (turno%2 != 0) {
             this.classList.add("turnoB")
-            // tauler[fila][columna] = "O";
+            tauler[fila][columna] = "O";
         }
         turno++;
         console.log(turno);
