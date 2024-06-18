@@ -21,10 +21,10 @@ for (var i = 1; i <= 9; i++) {
         }
 
         var coordenada = this.className.split(" ")[0].toString()
-        console.log(coordenada);
         var fila = coordenada.charAt(5);
         var columna = coordenada.charAt(6);
-        console.log("el primer valor de coordenada es " + coordenada.charAt(5) + " y el segundo es " + coordenada.charAt(6))
+        // console.log(coordenada);
+        // console.log("el primer valor de coordenada es " + columna + " y el segundo es " + fila)
 
         if (turno%2 == 0) {
             this.classList.add("turnoA")
@@ -34,8 +34,28 @@ for (var i = 1; i <= 9; i++) {
             this.classList.add("turnoB")
             tauler[fila][columna] = "O";
         }
+        ganar();
         turno++;
-        console.log(turno);
+        // console.log(turno);
         console.log(tauler)
+    }
+}
+
+function ganar() {
+    var mensajeGanar = document.getElementById("mensajeGanar");
+    var colorGanador = document.getElementById("colorGanador");
+
+    switch (tauler[0][0] && tauler[0][1] && tauler[0][2]) {
+        case "X":
+            mensajeGanar.style.display = "block";
+            colorGanador.innerHTML = "azul";
+            
+            break;
+    }
+    switch (tauler[0][0] && tauler[0][1] && tauler[0][2]) {
+        case "O":
+            mensajeGanar.style.display = "block";
+            document.getElementById("colorGanador").innerHTML = "naranja";
+            break;
     }
 }

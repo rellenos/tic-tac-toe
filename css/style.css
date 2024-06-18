@@ -37,3 +37,7 @@
 .div.turnoB {
     background-color: orange;
 }
+
+#mensajeGanar {
+    display: none;
+}
