@@ -1,10 +1,13 @@
-let turno = 1;
+let turno = 0;
 let tauler = [
     ["","",""],
     ["","",""],
     ["","",""]]
 let ganadorX = false;
 let ganadorO = false;
+tableroActivo = true;
+var mensajeGanar = document.getElementById("mensajeGanar");
+var colorGanador = document.getElementById("colorGanador");
 
 // for (i=0;i<3;i++) {
 //     for (j=0;j<3;j++) {
@@ -12,43 +15,40 @@ let ganadorO = false;
 //     } 
 // }
 
-for (var i = 1; i <= 9; i++) {
-    var casilla = document.getElementById("casilla-" + i);
-    
-    casilla.onclick = function() {
-        if (this.classList.contains("cercle") || this.classList.contains("cross")) {
-            alert("pulsa otra casilla");
-            return;
+// if (tableroActivo) {
+    for (var i = 1; i <= 9; i++) {
+        var casilla = document.getElementById("casilla-" + i);
+        
+        casilla.onclick = function() {
+            if (this.classList.contains("cercle") || this.classList.contains("cross")) {
+                alert("pulsa otra casilla");
+                return;
+            }
+            
+            var coordenada = this.className.split(" ")[0].toString()
+            var fila = coordenada.charAt(5);
+            var columna = coordenada.charAt(6);
+            // console.log(coordenada);
+            // console.log("el primer valor de coordenada es " + columna + " y el segundo es " + fila)
+            if (turno%2 == 0) {
+                this.classList.remove("div");
+                this.classList.add("cercle")
+                tauler[fila][columna] = "O";
+            }
+            if (turno%2 != 0) {
+                this.classList.remove("div");
+                this.classList.add("cross")
+                tauler[fila][columna] = "X";
+            }
+            if(turno == 9 && (ganadorO == false || ganadorX == false)) alert("Partida finalitzada");
+            ganar();
+            turno++;
+            // console.log(tauler);
         }
-
-        var coordenada = this.className.split(" ")[0].toString()
-        var fila = coordenada.charAt(5);
-        var columna = coordenada.charAt(6);
-        // console.log(coordenada);
-        // console.log("el primer valor de coordenada es " + columna + " y el segundo es " + fila)
-        if (turno%2 == 0) {
-            // this.classList.add("turnoA")
-            this.classList.remove("div");
-            this.classList.add("cercle")
-            tauler[fila][columna] = "O";
-        }
-        if (turno%2 != 0) {
-            // this.classList.add("turnoB")
-            this.classList.remove("div");
-            this.classList.add("cross")
-            tauler[fila][columna] = "X";
-        }
-        ganar();
-        turno++;
-        console.log(tauler);
-        if(turno == 10 && (ganadorO == false || ganadorX == false)) alert("Partida finalitzada");
     }
-}
+// }
 
 function ganar() {
-    var mensajeGanar = document.getElementById("mensajeGanar");
-    var colorGanador = document.getElementById("colorGanador");
-
     for (let i = 0; i < 3; i++) {
         if((tauler[i][0]==tauler[i][1])&&(tauler[i][0]==tauler[i][2])&&(tauler[i][0]=="X")&&(tauler[i][0])!="") {
             ganadorX = true;
@@ -78,14 +78,40 @@ function ganar() {
     if (ganadorX) {
         mensajeGanar.style.display = "block";
         colorGanador.innerHTML = "X";
-        console.log(ganadorX);
+        tableroActivo = false;
     }
     if (ganadorO) {
         mensajeGanar.style.display = "block";
         colorGanador.innerHTML = "O";
-        console.log(ganadorO);
+        tableroActivo = false;
     }
+// console.log(tableroActivo)
+
 }
+
+function reset() {
+    tauler = [
+        ["","",""],
+        ["","",""],
+        ["","",""]
+    ];
+    turno = 0;
+    ganadorX = false;
+    ganadorO = false;
+    tableroActivo = true;
+
+    // console.log(turno)
+    // console.log(tauler)
+
+    for (var i = 1; i <= 9; i++) {
+        var casilla = document.getElementById("casilla-" + i);
+        casilla.classList.remove("cercle", "cross");
+        casilla.classList.add("div");
+    }
+
+    mensajeGanar.style.display = "none";
+}
+
 
 //antiga funció de guanyar que funciona a mitjes
 /*function ganar() {
