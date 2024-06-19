@@ -2,9 +2,9 @@ let turno = 1;
 let tauler = [
     ["","",""],
     ["","",""],
-    ["","",""]
-]
-let ganador = false;
+    ["","",""]]
+let ganadorX = false;
+let ganadorO = false;
 
 // for (i=0;i<3;i++) {
 //     for (j=0;j<3;j++) {
@@ -16,7 +16,7 @@ for (var i = 1; i <= 9; i++) {
     var casilla = document.getElementById("casilla-" + i);
     
     casilla.onclick = function() {
-        if (this.classList.contains("turnoA") || this.classList.contains("turnoB")) {
+        if (this.classList.contains("cercle") || this.classList.contains("cross")) {
             alert("pulsa otra casilla");
             return;
         }
@@ -27,42 +27,67 @@ for (var i = 1; i <= 9; i++) {
         // console.log(coordenada);
         // console.log("el primer valor de coordenada es " + columna + " y el segundo es " + fila)
         if (turno%2 == 0) {
-            this.classList.add("turnoA")
-            tauler[fila][columna] = "X";
-        }
-        if (turno%2 != 0) {
-            this.classList.add("turnoB")
+            // this.classList.add("turnoA")
+            this.classList.remove("div");
+            this.classList.add("cercle")
             tauler[fila][columna] = "O";
         }
+        if (turno%2 != 0) {
+            // this.classList.add("turnoB")
+            this.classList.remove("div");
+            this.classList.add("cross")
+            tauler[fila][columna] = "X";
+        }
+        ganar();
         turno++;
-        // console.log(turno);
         console.log(tauler);
-        validar();
-        if (ganador) alert("has guanyat");
+        if(turno == 10 && (ganadorO == false || ganadorX == false)) alert("Partida finalitzada");
     }
 }
 
-function validar() {
-    
-    // console.log(ganador);
+function ganar() {
+    var mensajeGanar = document.getElementById("mensajeGanar");
+    var colorGanador = document.getElementById("colorGanador");
+
     for (let i = 0; i < 3; i++) {
-        if((tauler[i][0]==tauler[i][1])&&(tauler[i][0]==tauler[i][2])&&(tauler[i][0]!="")) {
-            ganador = true;
-            console.log(ganador);
+        if((tauler[i][0]==tauler[i][1])&&(tauler[i][0]==tauler[i][2])&&(tauler[i][0]=="X")&&(tauler[i][0])!="") {
+            ganadorX = true;
         }
-        if((tauler[0][i]==tauler[1][i])&&(tauler[0][i]==tauler[2][i])&&(tauler[0][i]!="")) {
-            ganador = true;
-            console.log(ganador);
+        if((tauler[i][0]==tauler[i][1])&&(tauler[i][0]==tauler[i][2])&&(tauler[i][0]=="O")&&(tauler[i][0])!="") {
+            ganadorO = true;
+        }
+        if((tauler[0][i]==tauler[1][i])&&(tauler[0][i]==tauler[2][i])&&(tauler[0][i]=="X")&&(tauler[0][i])!="") {
+            ganadorX = true;
+        }
+        if((tauler[0][i]==tauler[1][i])&&(tauler[0][i]==tauler[2][i])&&(tauler[0][i]=="O")&&(tauler[0][i])!="") {
+            ganadorO = true;
         }
         if((((tauler[0][0]==tauler[1][1])&&(tauler[0][0]==tauler[2][2]))
         ||  ((tauler[0][2]==tauler[1][1])&&(tauler[0][2]==tauler[2][0])))
-        &&  (tauler[1][1]!="")) {
-            ganador = true;
-            console.log(ganador);
+        &&  (tauler[1][1]!="")&&(tauler[1][1]=="X")) {
+            ganadorX = true;
+            
         }
+        if((((tauler[0][0]==tauler[1][1])&&(tauler[0][0]==tauler[2][2]))
+        ||  ((tauler[0][2]==tauler[1][1])&&(tauler[0][2]==tauler[2][0])))
+        &&  (tauler[1][1]!="")&&(tauler[1][1]=="O")) {
+            ganadorO = true;
+        }
+    }
+
+    if (ganadorX) {
+        mensajeGanar.style.display = "block";
+        colorGanador.innerHTML = "X";
+        console.log(ganadorX);
+    }
+    if (ganadorO) {
+        mensajeGanar.style.display = "block";
+        colorGanador.innerHTML = "O";
+        console.log(ganadorO);
     }
 }
 
+//antiga funció de guanyar que funciona a mitjes
 /*function ganar() {
     var mensajeGanar = document.getElementById("mensajeGanar");
     var colorGanador = document.getElementById("colorGanador");

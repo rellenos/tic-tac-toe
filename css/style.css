@@ -11,7 +11,7 @@
     }
 
 .div {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     height: 100%;
 }
@@ -41,3 +41,28 @@
 #mensajeGanar {
     display: none;
 }
+
+.cercle {
+    width: 70px;
+    height: 70px;
+    border: 14px solid rgb(92, 92, 92);
+    margin: 20px;
+    border-radius: 50%;
+}
+
+.cross {
+    background: red;
+    height: 100px;
+    position: relative;
+    width: 14px;
+    transform: rotate(45deg);
+}
+.cross:after {
+    background: red;
+    content: "";
+    height: 14px;
+    left: -40px;
+    position: absolute;
+    top: 40px;
+    width: 100px;
+  }
